@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Bloggy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <% if (locals.user) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/add-new">Add Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <%= user.fullName %>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+                    </ul>
+                </li>
+            <% } else {%>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/signup">Create Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/signin">Signin</a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</nav>
+
+<% if (locals.error) { %>
+    <div class="constainer mt-4">
+        <div class="alert alert-danger" role="alert">
+            <%= locals.error %>
+        </div>
+    </div>
+    
+<% } %>
