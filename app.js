@@ -5,17 +5,16 @@ const path = require("path");
 const app = express();
 
 const { connectToMongoDB } = require("./connect");
-const { checkForAuthenticationCookie } = require("./middleware/authenticationCheck");
+const {
+	checkForAuthenticationCookie,
+} = require("./middleware/authenticationCheck");
 const Blog = require("./models/blogSchema");
 const userRoute = require("./routes/user");
 const blogRoute = require("./routes/blog");
 
+const PORT = process.env.PORT || 8080;
 
-const PORT = process.env.PORT||8080;
-
-connectToMongoDB(process.env.MONGODB_URL).then(() =>
-  console.log("Mongodb connected")
-);
+connectToMongoDB().then(() => console.log("Mongodb connected"));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -32,14 +31,16 @@ app.use(checkForAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")));
 
 app.get("/", async (req, res) => {
-    const allBlogs = await Blog.find({}).sort("createdAt");
-    res.render("home", {
-        user: req.user,
-        blogs:allBlogs,
-    });
-})
+	const allBlogs = await Blog.find({}).sort("createdAt");
+	res.render("home", {
+		user: req.user,
+		blogs: allBlogs,
+	});
+});
 
 app.use("/user", userRoute);
 app.use("/blog", blogRoute);
 
-app.listen(PORT, () => console.log(`Server Started at PORT:${PORT}  http://localhost:${PORT}/`));
+app.listen(PORT, () =>
+	console.log(`Server Started at PORT:${PORT}  http://localhost:${PORT}/`),
+);
