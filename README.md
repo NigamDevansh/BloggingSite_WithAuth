@@ -1,7 +1,7 @@
 
 # Blogging Website withAuth
 
-This is a blogging website build vis Ejs and express along with JWT(JsonWebToken) for authentication and for storing profile images and blog background images I have used Multer and for frontend I have used bootstrap.
+This is a blogging website build vis Ejs and express along with JWT(JsonWebToken) for authorization and for storing profile images and blog background images I have used Multer and for frontend I have used bootstrap.
 
 ## Environment Variables
 
